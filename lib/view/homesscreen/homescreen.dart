@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:note_app/utils/color_constants.dart';
+import 'package:note_app/utils/database.dart';
 
 import 'package:note_app/view/homescreen_card/homescreen_card.dart';
 
@@ -95,7 +96,7 @@ class Homescreen extends StatelessWidget {
                             width: 50,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: Colorconstants.grey,
+                              color: Colordb.colorlist[index],
                             ),
                           ),
                         ),
