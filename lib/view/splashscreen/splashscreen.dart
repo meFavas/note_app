@@ -4,7 +4,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:note_app/utils/color_constants.dart';
-import 'package:note_app/view/homesscreen/homescreen.dart';
+import 'package:note_app/view/homescreen/homescreen.dart';
+
 
 class Splashscreen extends StatefulWidget {
   const Splashscreen({super.key});
@@ -35,8 +36,8 @@ class _SplashscreenState extends State<Splashscreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              height: 100,
-              width: 100,
+              height: 120,
+              width: 120,
               decoration: BoxDecoration(
                   image:
                       DecorationImage(image: AssetImage("assets/notes.png"))),

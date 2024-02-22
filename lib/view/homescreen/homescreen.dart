@@ -3,13 +3,27 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:note_app/controller/homescreen_controller.dart';
 import 'package:note_app/utils/color_constants.dart';
 import 'package:note_app/utils/database.dart';
 
-import 'package:note_app/view/homescreen_card/homescreen_card.dart';
+import 'package:note_app/view/customcard/customcard.dart';
 
-class Homescreen extends StatelessWidget {
+class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
+
+  @override
+  State<Homescreen> createState() => _HomescreenState();
+}
+
+class _HomescreenState extends State<Homescreen> {
+  List colorlist = [
+    Colors.yellow,
+    Colors.red,
+    Colors.blue,
+    Colors.green,
+  ];
+  Homescreencontroller homescreencontrollerobj = Homescreencontroller();
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +43,20 @@ class Homescreen extends StatelessWidget {
         ),
       ),
       body: ListView.separated(
-          itemBuilder: (context, index) => Homescreencard(),
+          itemBuilder: (context, index) => Customcard(
+                title: homescreencontrollerobj.notelist[index]["title"],
+                des: homescreencontrollerobj.notelist[index]["des"],
+                date: homescreencontrollerobj.notelist[index]["date"],
+                colorlist: homescreencontrollerobj.notelist[index]["color"],
+                ondeletepressed: () {
+                  homescreencontrollerobj.deleteData(index);
+                  setState(() {});
+                },
+              ),
           separatorBuilder: (context, index) => SizedBox(
                 height: 10,
               ),
-          itemCount: 2),
+          itemCount: homescreencontrollerobj.notelist.length),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
@@ -121,12 +144,19 @@ class Homescreen extends StatelessWidget {
                           width: 10,
                         ),
                         Expanded(
-                          child: Container(
-                            child: Center(child: Text("Save")),
-                            height: 40,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colorconstants.grey,
+                          child: InkWell(
+                            onTap: () {
+                              homescreencontrollerobj.addData();
+                              setState(() {});
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              child: Center(child: Text("Save")),
+                              height: 40,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colorconstants.grey,
+                              ),
                             ),
                           ),
                         ),
