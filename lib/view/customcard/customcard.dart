@@ -28,7 +28,6 @@ class _CustomcardState extends State<Customcard> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Container(
-        width: 370,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: widget.colorlist,
@@ -36,6 +35,7 @@ class _CustomcardState extends State<Customcard> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 10, top: 10),
@@ -49,9 +49,7 @@ class _CustomcardState extends State<Customcard> {
                         fontSize: 25,
                       ),
                     ),
-                    SizedBox(
-                      width: 140,
-                    ),
+                    Spacer(),
                     IconButton(
                       onPressed: () {},
                       icon: Icon(
@@ -73,16 +71,18 @@ class _CustomcardState extends State<Customcard> {
                 height: 10,
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 15),
+                padding: const EdgeInsets.only(left: 15, right: 15),
                 child: Text(
                   widget.des,
                   style: TextStyle(fontSize: 17),
+                  textAlign: TextAlign.justify,
                 ),
               ),
               SizedBox(
                 height: 20,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   SizedBox(
                     width: 160,
@@ -92,9 +92,12 @@ class _CustomcardState extends State<Customcard> {
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 17),
                   ),
                   SizedBox(
-                    width: 30,
+                    width: 20,
                   ),
                   Icon(Icons.share),
+                  SizedBox(
+                    width: 15,
+                  ),
                 ],
               )
             ],
