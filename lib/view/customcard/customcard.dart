@@ -11,12 +11,16 @@ class Customcard extends StatefulWidget {
     required this.date,
     required this.colorlist,
     this.ondeletepressed,
+    this.onsavepressed,
+    this.oneditpressed,
   });
   final String title;
   final String des;
   final String date;
   final Color colorlist;
   final VoidCallback? ondeletepressed;
+  final VoidCallback? onsavepressed;
+  final VoidCallback? oneditpressed;
 
   @override
   State<Customcard> createState() => _CustomcardState();
@@ -51,7 +55,9 @@ class _CustomcardState extends State<Customcard> {
                     ),
                     Spacer(),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        widget.oneditpressed;
+                      },
                       icon: Icon(
                         Icons.edit,
                         color: Colorconstants.black,
