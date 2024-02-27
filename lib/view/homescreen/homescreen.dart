@@ -3,6 +3,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:note_app/controller/homescreen_controller.dart';
 import 'package:note_app/utils/color_constants.dart';
 import 'package:note_app/utils/database.dart';
@@ -140,10 +141,16 @@ class _HomescreenState extends State<Homescreen> {
                                         controller:
                                             Homescreencontroller.datecontroller,
                                         decoration: InputDecoration(
-                                            label: Text("Date"),
-                                            border: OutlineInputBorder(),
-                                            fillColor: Colorconstants.grey,
-                                            filled: true),
+                                          label: Text("Date"),
+                                          border: OutlineInputBorder(),
+                                          fillColor: Colorconstants.grey,
+                                          filled: true,
+                                          suffixIcon: IconButton(
+                                            onPressed: () {},
+                                            icon: Icon(
+                                                Icons.calendar_month_outlined),
+                                          ),
+                                        ),
                                         validator: (value) {
                                           if (Homescreencontroller
                                               .datecontroller.text.isNotEmpty) {
@@ -330,12 +337,30 @@ class _HomescreenState extends State<Homescreen> {
                             height: 10,
                           ),
                           TextFormField(
+                            readOnly: true,
                             controller: Homescreencontroller.datecontroller,
                             decoration: InputDecoration(
                                 label: Text("Date"),
                                 border: OutlineInputBorder(),
                                 fillColor: Colorconstants.grey,
-                                filled: true),
+                                filled: true,
+                                suffixIcon: InkWell(
+                                    onTap: () async {
+                                      final DateTime? pickedate =
+                                          await showDatePicker(
+                                              context: context,
+                                              firstDate: DateTime.now(),
+                                              lastDate: DateTime(2026));
+                                      if (pickedate != null) {
+                                        String formatdate =
+                                            DateFormat("dd/MM/yyyy")
+                                                .format(pickedate);
+                                        Homescreencontroller
+                                            .datecontroller.text = formatdate;
+                                      }
+                                    },
+                                    child:
+                                        Icon(Icons.calendar_month_outlined))),
                             validator: (value) {
                               if (Homescreencontroller
                                   .datecontroller.text.isNotEmpty) {
