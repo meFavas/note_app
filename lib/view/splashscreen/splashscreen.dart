@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:note_app/utils/color_constants.dart';
 import 'package:note_app/view/homescreen/homescreen.dart';
 
-
 class Splashscreen extends StatefulWidget {
   const Splashscreen({super.key});
 
@@ -41,17 +40,6 @@ class _SplashscreenState extends State<Splashscreen> {
               decoration: BoxDecoration(
                   image:
                       DecorationImage(image: AssetImage("assets/notes.png"))),
-            ),
-            Text(
-              "Write Your Records",
-              style: TextStyle(
-                  fontSize: 40,
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.w800,
-                  color: Colorconstants.blue),
-            ),
-            CircularProgressIndicator(
-              color: Colorconstants.blue,
             ),
           ],
         ),

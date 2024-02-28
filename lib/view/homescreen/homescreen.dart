@@ -63,14 +63,17 @@ class _HomescreenState extends State<Homescreen> {
                       homescreencontrollerobj.deleteData(index);
                       setState(() {});
                     },
-                    oneditpressed: () {
-                      Homescreencontroller.titlecontroller.text =
-                          homescreencontrollerobj.notelist[index]["title"];
-                      Homescreencontroller.descontroller.text =
-                          homescreencontrollerobj.notelist[index]["des"];
-                      Homescreencontroller.datecontroller.text =
-                          homescreencontrollerobj.notelist[index]["date"];
+                    // oneditpressed: () {
+                    //   Homescreencontroller.titlecontroller.text =
+                    //       homescreencontrollerobj.notelist[index]["title"];
+                    //   Homescreencontroller.descontroller.text =
+                    //       homescreencontrollerobj.notelist[index]["des"];
+                    //   Homescreencontroller.datecontroller.text =
+                    //       homescreencontrollerobj.notelist[index]["date"];
 
+                    // },
+
+                    oneditpressed: () {
                       showModalBottomSheet(
                         isScrollControlled: true,
                         context: context,
@@ -138,19 +141,34 @@ class _HomescreenState extends State<Homescreen> {
                                         height: 10,
                                       ),
                                       TextFormField(
+                                        readOnly: true,
                                         controller:
                                             Homescreencontroller.datecontroller,
                                         decoration: InputDecoration(
-                                          label: Text("Date"),
-                                          border: OutlineInputBorder(),
-                                          fillColor: Colorconstants.grey,
-                                          filled: true,
-                                          suffixIcon: IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(
-                                                Icons.calendar_month_outlined),
-                                          ),
-                                        ),
+                                            label: Text("Date"),
+                                            border: OutlineInputBorder(),
+                                            fillColor: Colorconstants.grey,
+                                            filled: true,
+                                            suffixIcon: InkWell(
+                                                onTap: () async {
+                                                  final DateTime? pickedate =
+                                                      await showDatePicker(
+                                                          context: context,
+                                                          firstDate:
+                                                              DateTime.now(),
+                                                          lastDate:
+                                                              DateTime(2026));
+                                                  if (pickedate != null) {
+                                                    String formatdate =
+                                                        DateFormat("dd/MM/yyyy")
+                                                            .format(pickedate);
+                                                    Homescreencontroller
+                                                        .datecontroller
+                                                        .text = formatdate;
+                                                  }
+                                                },
+                                                child: Icon(Icons
+                                                    .calendar_month_outlined))),
                                         validator: (value) {
                                           if (Homescreencontroller
                                               .datecontroller.text.isNotEmpty) {

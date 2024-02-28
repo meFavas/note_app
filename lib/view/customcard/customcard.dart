@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:note_app/utils/color_constants.dart';
+import 'package:share_plus/share_plus.dart';
 
 class Customcard extends StatefulWidget {
   const Customcard({
@@ -100,7 +101,12 @@ class _CustomcardState extends State<Customcard> {
                   SizedBox(
                     width: 20,
                   ),
-                  Icon(Icons.share),
+                  IconButton(
+                    onPressed: () {
+                      Share.share("checkout my website httpd://example.com");
+                    },
+                    icon: Icon(Icons.share),
+                  ),
                   SizedBox(
                     width: 15,
                   ),
