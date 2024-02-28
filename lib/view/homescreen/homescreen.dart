@@ -59,20 +59,6 @@ class _HomescreenState extends State<Homescreen> {
                     des: homescreencontrollerobj.notelist[index]["des"],
                     date: homescreencontrollerobj.notelist[index]["date"],
                     colorlist: homescreencontrollerobj.notelist[index]["color"],
-                    ondeletepressed: () {
-                      homescreencontrollerobj.deleteData(index);
-                      setState(() {});
-                    },
-                    // oneditpressed: () {
-                    //   Homescreencontroller.titlecontroller.text =
-                    //       homescreencontrollerobj.notelist[index]["title"];
-                    //   Homescreencontroller.descontroller.text =
-                    //       homescreencontrollerobj.notelist[index]["des"];
-                    //   Homescreencontroller.datecontroller.text =
-                    //       homescreencontrollerobj.notelist[index]["date"];
-
-                    // },
-
                     oneditpressed: () {
                       showModalBottomSheet(
                         isScrollControlled: true,
@@ -145,30 +131,30 @@ class _HomescreenState extends State<Homescreen> {
                                         controller:
                                             Homescreencontroller.datecontroller,
                                         decoration: InputDecoration(
-                                            label: Text("Date"),
-                                            border: OutlineInputBorder(),
-                                            fillColor: Colorconstants.grey,
-                                            filled: true,
-                                            suffixIcon: InkWell(
-                                                onTap: () async {
-                                                  final DateTime? pickedate =
-                                                      await showDatePicker(
-                                                          context: context,
-                                                          firstDate:
-                                                              DateTime.now(),
-                                                          lastDate:
-                                                              DateTime(2026));
-                                                  if (pickedate != null) {
-                                                    String formatdate =
-                                                        DateFormat("dd/MM/yyyy")
-                                                            .format(pickedate);
-                                                    Homescreencontroller
-                                                        .datecontroller
-                                                        .text = formatdate;
-                                                  }
-                                                },
-                                                child: Icon(Icons
-                                                    .calendar_month_outlined))),
+                                          label: Text("Date"),
+                                          border: OutlineInputBorder(),
+                                          fillColor: Colorconstants.grey,
+                                          filled: true,
+                                          suffixIcon: InkWell(
+                                            onTap: () async {
+                                              final DateTime? pickedate =
+                                                  await showDatePicker(
+                                                      context: context,
+                                                      firstDate: DateTime.now(),
+                                                      lastDate: DateTime(2026));
+                                              if (pickedate != null) {
+                                                String formatdate =
+                                                    DateFormat("dd/MM/yyyy")
+                                                        .format(pickedate);
+                                                Homescreencontroller
+                                                    .datecontroller
+                                                    .text = formatdate;
+                                              }
+                                            },
+                                            child: Icon(
+                                                Icons.calendar_month_outlined),
+                                          ),
+                                        ),
                                         validator: (value) {
                                           if (Homescreencontroller
                                               .datecontroller.text.isNotEmpty) {
@@ -262,8 +248,8 @@ class _HomescreenState extends State<Homescreen> {
                                                 }
                                               },
                                               child: Container(
-                                                child:
-                                                    Center(child: Text("Save")),
+                                                child: Center(
+                                                    child: Text("update")),
                                                 height: 40,
                                                 decoration: BoxDecoration(
                                                   borderRadius:
@@ -358,27 +344,27 @@ class _HomescreenState extends State<Homescreen> {
                             readOnly: true,
                             controller: Homescreencontroller.datecontroller,
                             decoration: InputDecoration(
-                                label: Text("Date"),
-                                border: OutlineInputBorder(),
-                                fillColor: Colorconstants.grey,
-                                filled: true,
-                                suffixIcon: InkWell(
-                                    onTap: () async {
-                                      final DateTime? pickedate =
-                                          await showDatePicker(
-                                              context: context,
-                                              firstDate: DateTime.now(),
-                                              lastDate: DateTime(2026));
-                                      if (pickedate != null) {
-                                        String formatdate =
-                                            DateFormat("dd/MM/yyyy")
-                                                .format(pickedate);
-                                        Homescreencontroller
-                                            .datecontroller.text = formatdate;
-                                      }
-                                    },
-                                    child:
-                                        Icon(Icons.calendar_month_outlined))),
+                              label: Text("Date"),
+                              border: OutlineInputBorder(),
+                              fillColor: Colorconstants.grey,
+                              filled: true,
+                              suffixIcon: InkWell(
+                                onTap: () async {
+                                  final DateTime? pickedate =
+                                      await showDatePicker(
+                                          context: context,
+                                          firstDate: DateTime.now(),
+                                          lastDate: DateTime(2026));
+                                  if (pickedate != null) {
+                                    String formatdate = DateFormat("dd/MM/yyyy")
+                                        .format(pickedate);
+                                    Homescreencontroller.datecontroller.text =
+                                        formatdate;
+                                  }
+                                },
+                                child: Icon(Icons.calendar_month_outlined),
+                              ),
+                            ),
                             validator: (value) {
                               if (Homescreencontroller
                                   .datecontroller.text.isNotEmpty) {
@@ -482,6 +468,14 @@ class _HomescreenState extends State<Homescreen> {
           );
         },
       ),
+    );
+  }
+
+  void bottomsheet() {
+    showBottomSheet(
+      context: context,
+      builder: (context) =>
+          Container(height: 300, width: 300, color: Colors.amber),
     );
   }
 }

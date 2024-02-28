@@ -56,9 +56,7 @@ class _CustomcardState extends State<Customcard> {
                     ),
                     Spacer(),
                     IconButton(
-                      onPressed: () {
-                        widget.oneditpressed;
-                      },
+                      onPressed: widget.oneditpressed,
                       icon: Icon(
                         Icons.edit,
                         color: Colorconstants.black,
@@ -105,7 +103,10 @@ class _CustomcardState extends State<Customcard> {
                     onPressed: () {
                       Share.share("checkout my website httpd://example.com");
                     },
-                    icon: Icon(Icons.share),
+                    icon: Icon(
+                      Icons.share,
+                      color: Colorconstants.black,
+                    ),
                   ),
                   SizedBox(
                     width: 15,
