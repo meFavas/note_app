@@ -59,7 +59,19 @@ class _HomescreenState extends State<Homescreen> {
                     des: homescreencontrollerobj.notelist[index]["des"],
                     date: homescreencontrollerobj.notelist[index]["date"],
                     colorlist: homescreencontrollerobj.notelist[index]["color"],
+                    ondeletepressed: () {
+                      //to delete a data from the list----------------------------------
+                      homescreencontrollerobj.deleteData(index);
+                      setState(() {});
+                    },
                     oneditpressed: () {
+                      //assigning values to controller while editing----------------------------
+                      Homescreencontroller.titlecontroller.text =
+                          homescreencontrollerobj.notelist[index]["title"];
+                      Homescreencontroller.descontroller.text =
+                          homescreencontrollerobj.notelist[index]["des"];
+                      Homescreencontroller.datecontroller.text =
+                          homescreencontrollerobj.notelist[index]["date"];
                       showModalBottomSheet(
                         isScrollControlled: true,
                         context: context,
@@ -238,7 +250,7 @@ class _HomescreenState extends State<Homescreen> {
                                                 if (formkey.currentState!
                                                     .validate()) {
                                                   homescreencontrollerobj
-                                                      .addData();
+                                                      .editdata(index);
                                                   Homescreencontroller
                                                       .cleardata();
 
