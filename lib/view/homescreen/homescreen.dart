@@ -3,6 +3,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
+
 import 'package:intl/intl.dart';
 import 'package:note_app/controller/homescreen_controller.dart';
 import 'package:note_app/utils/color_constants.dart';
@@ -25,6 +27,7 @@ class _HomescreenState extends State<Homescreen> {
     Colors.green,
   ];
   int selectedindex = 0;
+  var mybox = Hive.box("notebox");
 
   Homescreencontroller homescreencontrollerobj = Homescreencontroller();
   var formkey = GlobalKey<FormState>();
@@ -46,7 +49,7 @@ class _HomescreenState extends State<Homescreen> {
           ),
         ),
       ),
-      body: homescreencontrollerobj.notelist.isEmpty
+      body: homescreencontrollerobj.notekeys.isEmpty
           ? Center(
               child: Text(
                 "no data found",
@@ -55,10 +58,15 @@ class _HomescreenState extends State<Homescreen> {
             )
           : ListView.separated(
               itemBuilder: (context, index) => Customcard(
-                    title: homescreencontrollerobj.notelist[index]["title"],
-                    des: homescreencontrollerobj.notelist[index]["des"],
-                    date: homescreencontrollerobj.notelist[index]["date"],
-                    colorlist: homescreencontrollerobj.notelist[index]["color"],
+                    title: mybox
+                        .get(homescreencontrollerobj.notekeys[index])["title"],
+                    des: mybox
+                        .get(homescreencontrollerobj.notekeys[index])["des"],
+                    date: mybox
+                        .get(homescreencontrollerobj.notekeys[index])["date"],
+                    colorlist: Colors.white,
+
+                    // colorlist: mybox.get(homescreencontrollerobj.notelist[index])["color"],
                     ondeletepressed: () {
                       //to delete a data from the list----------------------------------
                       homescreencontrollerobj.deleteData(index);
@@ -286,7 +294,8 @@ class _HomescreenState extends State<Homescreen> {
               separatorBuilder: (context, index) => SizedBox(
                     height: 10,
                   ),
-              itemCount: homescreencontrollerobj.notelist.length),
+              // dddddddddddddddddddddddddd
+              itemCount: homescreencontrollerobj.notekeys.length),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 
 class Homescreencontroller {
   static TextEditingController titlecontroller = TextEditingController();
@@ -6,15 +7,24 @@ class Homescreencontroller {
   static TextEditingController datecontroller = TextEditingController();
   static Color selectcolor = Colors.white;
   List notelist = [];
+  List notekeys = [];
+  var mybox = Hive.box("notebox");
   void addData() {
-    notelist.add(
-      {
-        "title": titlecontroller.text,
-        "des": descontroller.text,
-        "date": datecontroller.text,
-        "color": selectcolor,
-      },
-    );
+    mybox.add({
+      "title": titlecontroller.text,
+      "des": descontroller.text,
+      "date": datecontroller.text,
+      // "color": selectcolor,
+    });
+    notekeys = mybox.keys.toList();
+    // notelist.add(
+    //   {
+    //     "title": titlecontroller.text,
+    //     "des": descontroller.text,
+    //     "date": datecontroller.text,
+    //     "color": selectcolor,
+    //   },
+    // );
   }
 
   void deleteData(int index) {
