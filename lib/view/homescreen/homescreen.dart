@@ -20,17 +20,17 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> {
-  List colorlist = [
-    Colors.yellow,
-    Colors.red,
-    Colors.blue,
-    Colors.green,
-  ];
   int selectedindex = 0;
   var mybox = Hive.box("notebox");
 
   Homescreencontroller homescreencontrollerobj = Homescreencontroller();
+
   var formkey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    homescreencontrollerobj.init();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,22 +64,29 @@ class _HomescreenState extends State<Homescreen> {
                         .get(homescreencontrollerobj.notekeys[index])["des"],
                     date: mybox
                         .get(homescreencontrollerobj.notekeys[index])["date"],
-                    colorlist: Colors.white,
+                    colorlist: mybox.get(homescreencontrollerobj
+                                .notekeys[index])["color"] !=
+                            null
+                        ? Homescreencontroller.colorlist[mybox.get(
+                            homescreencontrollerobj.notekeys[index])["color"]]
+                        : Colors.white,
 
                     // colorlist: mybox.get(homescreencontrollerobj.notelist[index])["color"],
                     ondeletepressed: () {
                       //to delete a data from the list----------------------------------
-                      homescreencontrollerobj.deleteData(index);
+                      homescreencontrollerobj
+                          .deleteData(homescreencontrollerobj.notekeys[index]);
                       setState(() {});
                     },
                     oneditpressed: () {
                       //assigning values to controller while editing----------------------------
-                      Homescreencontroller.titlecontroller.text =
-                          homescreencontrollerobj.notelist[index]["title"];
-                      Homescreencontroller.descontroller.text =
-                          homescreencontrollerobj.notelist[index]["des"];
-                      Homescreencontroller.datecontroller.text =
-                          homescreencontrollerobj.notelist[index]["date"];
+                      Homescreencontroller.titlecontroller.text = mybox.get(
+                          homescreencontrollerobj.notekeys[index])["title"];
+                      Homescreencontroller.descontroller.text = mybox
+                          .get(homescreencontrollerobj.notekeys[index])["des"];
+                      Homescreencontroller.datecontroller.text = mybox
+                          .get(homescreencontrollerobj.notekeys[index])["date"];
+
                       showModalBottomSheet(
                         isScrollControlled: true,
                         context: context,
@@ -154,7 +161,7 @@ class _HomescreenState extends State<Homescreen> {
                                           label: Text("Date"),
                                           border: OutlineInputBorder(),
                                           fillColor: Colorconstants.grey,
-                                          filled: true,
+                                          filled: true, 
                                           suffixIcon: InkWell(
                                             onTap: () async {
                                               final DateTime? pickedate =
@@ -192,24 +199,31 @@ class _HomescreenState extends State<Homescreen> {
                                         child: ListView.builder(
                                           scrollDirection: Axis.horizontal,
                                           shrinkWrap: true,
-                                          itemCount: colorlist.length,
+                                          itemCount: Homescreencontroller
+                                              .colorlist.length,
                                           itemBuilder: (context, index) =>
                                               Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: InkWell(
                                               onTap: () {
-                                                selectedindex = index;
+                                                var obj =
+                                                    Homescreencontroller();
+                                                Homescreencontroller
+                                                    .selectColorindex = index;
 
                                                 homescreencontrollerobj
                                                     .onColorselection(
-                                                        colorlist[index]);
+                                                        Homescreencontroller
+                                                            .selectColorindex);
                                                 bottomsetState(() {});
                                               },
                                               child: Container(
                                                 height: 50,
                                                 width: 50,
                                                 decoration: BoxDecoration(
-                                                  border: selectedindex == index
+                                                  border: Homescreencontroller
+                                                              .selectColorindex ==
+                                                          index
                                                       ? Border.all(
                                                           width: 4,
                                                           color: Colorconstants
@@ -255,17 +269,16 @@ class _HomescreenState extends State<Homescreen> {
                                           Expanded(
                                             child: InkWell(
                                               onTap: () {
-                                                if (formkey.currentState!
-                                                    .validate()) {
-                                                  homescreencontrollerobj
-                                                      .editdata(index);
-                                                  Homescreencontroller
-                                                      .cleardata();
+                                                homescreencontrollerobj
+                                                    .editdata(
+                                                        homescreencontrollerobj
+                                                            .notekeys[index]);
+                                                Homescreencontroller
+                                                    .cleardata();
 
-                                                  setState(() {});
+                                                setState(() {});
 
-                                                  Navigator.pop(context);
-                                                }
+                                                Navigator.pop(context);
                                               },
                                               child: Container(
                                                 child: Center(
@@ -403,22 +416,26 @@ class _HomescreenState extends State<Homescreen> {
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               shrinkWrap: true,
-                              itemCount: colorlist.length,
+                              itemCount: Homescreencontroller.colorlist.length,
                               itemBuilder: (context, index) => Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: InkWell(
                                   onTap: () {
-                                    selectedindex = index;
+                                    var obj = Homescreencontroller();
+                                    Homescreencontroller.selectColorindex =
+                                        index;
 
-                                    homescreencontrollerobj
-                                        .onColorselection(colorlist[index]);
+                                    homescreencontrollerobj.onColorselection(
+                                        Homescreencontroller.selectColorindex);
                                     bottomsetState(() {});
                                   },
                                   child: Container(
                                     height: 50,
                                     width: 50,
                                     decoration: BoxDecoration(
-                                      border: selectedindex == index
+                                      border: Homescreencontroller
+                                                  .selectColorindex ==
+                                              index
                                           ? Border.all(
                                               width: 4,
                                               color: Colorconstants.black)

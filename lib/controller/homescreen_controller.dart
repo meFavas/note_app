@@ -6,7 +6,14 @@ class Homescreencontroller {
   static TextEditingController descontroller = TextEditingController();
   static TextEditingController datecontroller = TextEditingController();
   static Color selectcolor = Colors.white;
-  List notelist = [];
+  static List colorlist = [
+    Colors.yellow,
+    Colors.red,
+    Colors.blue,
+    Colors.green,
+  ];
+  static int selectColorindex = 0;
+  // List notelist = [];
   List notekeys = [];
   var mybox = Hive.box("notebox");
   void addData() {
@@ -14,7 +21,7 @@ class Homescreencontroller {
       "title": titlecontroller.text,
       "des": descontroller.text,
       "date": datecontroller.text,
-      // "color": selectcolor,
+      "color": selectColorindex,
     });
     notekeys = mybox.keys.toList();
     // notelist.add(
@@ -27,8 +34,9 @@ class Homescreencontroller {
     // );
   }
 
-  void deleteData(int index) {
-    notelist.removeAt(index);
+  void deleteData(var key) {
+    mybox.delete(key);
+    notekeys = mybox.keys.toList();
   }
 
   static void cleardata() {
@@ -37,16 +45,20 @@ class Homescreencontroller {
     datecontroller.clear();
   }
 
-  void onColorselection(newcolor) {
-    selectcolor = newcolor;
+  void onColorselection(int newcolorindex) {
+    selectColorindex = newcolorindex;
   }
 
-  void editdata(int index) {
-    notelist[index] = {
+  void editdata(var key) {
+    mybox.put(key, {
       "title": titlecontroller.text,
       "des": descontroller.text,
       "date": datecontroller.text,
-      "color": selectcolor,
-    };
+      "color": selectColorindex,
+    });
+  }
+
+  init() {
+    notekeys = mybox.keys.toList();
   }
 }
